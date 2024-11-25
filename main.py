@@ -1,23 +1,24 @@
 class Microphone:
-    def __init__(self, number):
+    def __init__(self, number, mictype):
         self.number = number
         self.owner = None
+        self.type = mictype
 
-        print(f"Microphone signed in: HH{number}")
+        print(f"{mictype} signed in: HH{number}")
 
     def live(self, owner):
         self.owner = owner
-        print(f"Microphone {self.number} is live with {owner}")
+        print(f"{self.number} ({self.type}) is live with {owner}")
 
     def die(self):
-        print(f"Microphone {self.number} returned by {self.owner}")
+        print(f"{self.number} ({self.type}) returned by {self.owner}")
         self.owner = None
 
     def __str__(self):
         if self.owner:
-            return f"Microphone {self.number} live with {self.owner}"
+            return f"{self.number} ({self.type}) live with {self.owner}"
         else:
-            return f"Microphone {self.number} is available"
+            return f"{self.number} ({self.type}) is available"
 
     def __repr__(self):
         return self.__str__()
@@ -28,7 +29,7 @@ while True:
     inp = input(">")
     match inp.split(" ")[0]:
         case "create":
-            mics.append(Microphone(inp.split(" ")[1]))
+            mics.append(Microphone(inp.split(" ")[1], inp.split(" ")[2]))
         case "live":
             mic = mics[int(inp.split(" ")[1])-1]
             mic.live(inp.split(" ")[2])
